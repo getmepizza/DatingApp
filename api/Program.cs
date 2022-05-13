@@ -13,6 +13,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 
 var app = builder.Build();
 
@@ -28,5 +30,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
