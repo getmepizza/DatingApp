@@ -1,6 +1,7 @@
 using api.Context;
 using api.Controllers.BaseController;
 using api.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,8 @@ namespace api.Controllers
             return await _context.AppUser.ToListAsync();
         }
 
-        [HttpPost("id")]
+        [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<ApplicationUser>> GetUser(int id)
         {
             var user = await _context.AppUser.FindAsync(id);
