@@ -7,23 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   registerMode = false;
-  users: any;
-  baseUrl = 'https://localhost:5001/';
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getUsers()
   }
 
   registerToggle() {
     this.registerMode = true;
   }
 
-  getUsers() {
-    this.http.get(this.baseUrl + 'api/user').subscribe(resposne => this.users = resposne)
+  cancelRegistrationMode(event: boolean) {
+    this.registerMode = event;
   }
-
 }
