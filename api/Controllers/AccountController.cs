@@ -5,6 +5,7 @@ using api.Controllers.BaseController;
 using api.DTO;
 using api.Entities;
 using api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,6 @@ namespace api.Controllers
     {
         private readonly ApplicationContext _context;
         private readonly ITokenService _tokenService;
-
         public AccountController(ApplicationContext context, ITokenService tokenService)
         {
             this._tokenService = tokenService;

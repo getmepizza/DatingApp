@@ -1,7 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { User } from '../_models/user';
 
 
@@ -10,7 +10,9 @@ import { User } from '../_models/user';
 })
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
-  private currentUserSource = new ReplaySubject<User>(1);
+
+
+  private currentUserSource = new ReplaySubject<User | null>(1);
 
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -23,7 +25,7 @@ export class AccountService {
         const user = response;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user)
+          this.currentUserSource.next(user);
         }
       })
     );
@@ -35,8 +37,6 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('user');
-    this.currentUserSource.next();
+    this.currentUserSource.next(null);
   }
-
-
 }
