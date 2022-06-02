@@ -11,7 +11,6 @@ import { User } from '../_models/user';
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
 
-
   private currentUserSource = new ReplaySubject<User | null>(1);
 
   currentUser$ = this.currentUserSource.asObservable();
@@ -26,7 +25,6 @@ export class AccountService {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
         }
-        return user;
       })
     );
   }
