@@ -5,13 +5,21 @@ import { ListsComponent } from './lists/lists.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MembersDetailComponent } from './members/members-detail/members-detail.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AuthGuard } from './_guard/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'members', component: MemberListComponent },
-  { path: 'members/:id', component: MembersDetailComponent },
-  { path: 'lists', component: ListsComponent },
-  { path: 'messages', component: MessagesComponent },
+  {
+    path: '',
+    runGuardsAndResolvers: "always",
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'members', component: MemberListComponent },
+      { path: 'members/:id', component: MembersDetailComponent },
+      { path: 'lists', component: ListsComponent },
+      { path: 'messages', component: MessagesComponent },
+    ]
+  }
 ];
 
 @NgModule({
